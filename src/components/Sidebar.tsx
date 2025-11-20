@@ -23,16 +23,14 @@ export default function Sidebar() {
     return (
         <div
             className={cn(
-                "bg-blue-500 text-white h-screen transition-all duration-300 flex flex-col py-4",
+                "bg-[#1c9d96] text-white h-screen transition-all duration-300 flex flex-col py-4",
                 collapsed ? "w-24" : "w-72"
             )}
         >
             {/* Logo + Toggle */}
-            <div className="flex items-center justify-between px-5 mb-5">
+            <div className="flex items-center justify-between px-5 mb-1">
                 {!collapsed && (
-                    <h1 className="text-xl font-bold tracking-wide uppercase">
-                        Creative Tim
-                    </h1>
+                    <img src="/logo.png" alt="logo" className="w-auto h-14 object-contain" />
                 )}
 
                 <button
