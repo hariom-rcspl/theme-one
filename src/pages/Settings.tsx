@@ -6,7 +6,13 @@ import { Button } from "../components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "../components/ui/card";
 import { Label } from "../components/ui/label";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../components/ui/select";
-import { Pencil } from "lucide-react";
+import { Calendar1, Pencil } from "lucide-react";
+import { Textarea } from "../components/ui/textarea";
+import { Popover, PopoverContent, PopoverTrigger } from "../components/ui/popover";
+import { Calendar } from "../components/ui/calendar";
+import { Switch } from "../components/ui/switch";
+import { RadioGroup, RadioGroupItem } from "../components/ui/radio-group";
+import { Checkbox } from "../components/ui/checkbox";
 
 const ProfileSchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
@@ -20,6 +26,8 @@ const ProfileSchema = Yup.object().shape({
 
 export default function Settings() {
   const [imagePreview, setImagePreview] = useState(null);
+  const [open, setOpen]: any = useState(false)
+  const [date, setDate] = useState<Date | undefined>(undefined)
 
   const handleImageChange = (e: any) => {
     const file = e.target.files[0];
@@ -131,24 +139,93 @@ export default function Settings() {
                 {/* Address */}
                 <div>
                   <Label className="mb-2">Address</Label>
-                  <Field name="address" as={Input} placeholder="Enter address" />
+                  <Field name="address" as={Textarea} placeholder="Enter address" />
                   {errors.address && touched.address && <p className="text-red-500 text-sm">{errors.address}</p>}
                 </div>
 
-                {/* Role Select */}
-                <div>
-                  <Label className="mb-2">Role</Label>
-                  <Select onValueChange={(v) => setFieldValue("role", v)}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a role" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="admin">Admin</SelectItem>
-                      <SelectItem value="manager">Manager</SelectItem>
-                      <SelectItem value="user">User</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  {errors.role && touched.role && <p className="text-red-500 text-sm">{errors.role}</p>}
+                <div className="grid grid-cols-3 gap-5 ">
+                  {/* Role Select */}
+                  <div>
+                    <Label className="mb-2">Role</Label>
+                    <Select onValueChange={(v) => setFieldValue("role", v)}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Select a role" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="admin">Admin</SelectItem>
+                        <SelectItem value="manager">Manager</SelectItem>
+                        <SelectItem value="user">User</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    {errors.role && touched.role && <p className="text-red-500 text-sm">{errors.role}</p>}
+                  </div>
+
+                  {/* date picker  */}
+                  <div className="flex flex-col gap-3">
+                    <Label htmlFor="date" className="px-1">
+                      Date of birth
+                    </Label>
+                    <Popover open={open} onOpenChange={setOpen}>
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant="outline"
+                          id="date"
+                          className="justify-between font-normal w-full"
+                        >
+                          {date ? date.toLocaleDateString() : "Select date"}
+                          <Calendar1 />
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto overflow-hidden p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={date}
+                          captionLayout="dropdown"
+                          onSelect={(date) => {
+                            setDate(date)
+                            setOpen(false)
+                          }}
+                        />
+                      </PopoverContent>
+                    </Popover>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <Label className="mb-2">Gender</Label>
+                    <RadioGroup defaultValue="male" className="flex">
+                      <div className="flex items-center gap-3">
+                        <RadioGroupItem value="male" id="male" />
+                        <Label htmlFor="male">male</Label>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <RadioGroupItem value="female" id="female" />
+                        <Label htmlFor="female">Female</Label>
+                      </div>
+                    </RadioGroup>
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-3 mb-8">
+                  <Label>Permission</Label>
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3">
+                      <Checkbox id="read" />
+                      <Label htmlFor="read">View</Label>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Checkbox id="write" />
+                      <Label htmlFor="write">Write</Label>
+                    </div>
+                     <div className="flex items-center gap-3">
+                      <Checkbox id="delete" />
+                      <Label htmlFor="delete">Delete</Label>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center space-x-2 ">
+                  <Switch id="tandc" />
+                  <Label htmlFor="tandc">I agree terms and condition</Label>
                 </div>
 
                 <Button type="submit" className="w-full">Save Changes</Button>
