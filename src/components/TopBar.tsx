@@ -13,7 +13,7 @@ const TopBar = () => {
     const { pathname } = useLocation()
     return (
         <div className="bg-black/90 pb-24 -mb-10">
-            <header className=" py-3 shadow-sm flex items-center justify-between px-5 text-white">
+            <header className=" py-3 shadow-sm flex items-center justify-between px-5 mb-2  text-white">
                 <h2 className="font-semibold text-lg">Welcome</h2>
                 <div className="flex gap-3 items-center">
                     <p className="text-sm font-bold">
@@ -43,10 +43,7 @@ const TopBar = () => {
                     </DropdownMenu>
                 </div>
             </header>
-
-            {
-                pathname === "/" && <TopGraph />
-            }
+            {pathname === "/" && <TopGraph />}
         </div>
     )
 }

@@ -79,7 +79,8 @@ function SidebarItem({
                 "flex items-center cursor-pointer transition-all px-5 py-3 rounded-full mx-3 group",
                 active
                     ? "bg-white/30"
-                    : "hover:bg-white/20"
+                    : "hover:bg-white/20",
+                    collapsed ? "justify-center" : ""
             )}
         >
             <Icon size={22} />

@@ -3,18 +3,18 @@ import { Area, AreaChart, CartesianGrid, ReferenceLine, ResponsiveContainer, Too
 const TopGraph = () => {
 
     const activeUsersData = [
-        { month: "JAN", value: 60 },
+        { month: "JAN", value: 10 },
         { month: "FEB", value: 120 },
-        { month: "MAR", value: 100 },
+        { month: "MAR", value: 50 },
         { month: "APR", value: 110 },
-        { month: "MAY", value: 140 },
+        { month: "MAY", value: 220 },
         { month: "JUN", value: 130 },
-        { month: "JUL", value: 135 },
+        { month: "JUL", value: 15 },
         { month: "AUG", value: 150 },
-        { month: "SEPT", value: 120 },
+        { month: "SEPT", value: 10 },
         { month: "OCT", value: 140 },
-        { month: "NOV", value: 160 },
-        { month: "DEC", value: 145 },
+        { month: "NOV", value: 10 },
+        { month: "DEC", value: 15 },
     ]
     return (
         <div>
