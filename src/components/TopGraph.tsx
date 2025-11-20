@@ -18,19 +18,19 @@ const TopGraph = () => {
     ]
     return (
         <div>
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height={300} className={"px-3"}>
                 <AreaChart data={activeUsersData}>
                     <defs>
                         <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="#fb7185" stopOpacity={0.3} />
-                            <stop offset="95%" stopColor="#fb7185" stopOpacity={0} />
+                            <stop offset="5%" stopColor="#fff" stopOpacity={0.3} />
+                            <stop offset="95%" stopColor="#fff" stopOpacity={0} />
                         </linearGradient>
                     </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="" />
                     <Tooltip />
-                    <XAxis dataKey="month" opacity={0.4} fontSize={10} />
-                    <YAxis width="auto" opacity={0.4} fontSize={10} />
-                    <Area type="monotone" dataKey="value" stroke="#fb7185" fillOpacity={1} fill="url(#colorValue)" />
+                    <XAxis dataKey="month" opacity={1} fontSize={10} />
+                    <YAxis width="auto" opacity={1} fontSize={10}  />
+                    <Area type="monotone" dataKey="value" stroke="#fff" fillOpacity={1} fill="url(#colorValue)" />
                 </AreaChart>
             </ResponsiveContainer>
         </div>

@@ -1,11 +1,9 @@
 import { Charts } from "../components/Charts";
 import { ProductsTable } from "../components/ProductsTable";
-import TopGraph from "../components/TopGraph";
 
 export default function Dashboard() {
   return (
     <div className="space-y-8">
-      <TopGraph />
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
         <div className="bg-white rounded-xl shadow p-5">
