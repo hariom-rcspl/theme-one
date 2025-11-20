@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { Input } from "../components/ui/input";
@@ -6,6 +6,7 @@ import { Button } from "../components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "../components/ui/card";
 import { Label } from "../components/ui/label";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../components/ui/select";
+import { Pencil } from "lucide-react";
 
 const ProfileSchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
@@ -29,6 +30,12 @@ export default function Settings() {
     }
   };
 
+  const fileInputRef: any = useRef(null);
+
+  const handleClick = () => {
+    fileInputRef.current?.click();
+  };
+
   return (
     <div className="flex justify-center">
       <Card className="w-full p-4 rounded-2xl shadow-md">
@@ -44,7 +51,6 @@ export default function Settings() {
               password: "",
               confirmPassword: "",
               address: "",
-              twofa: false,
               role: "",
             }}
             validationSchema={ProfileSchema}
@@ -55,10 +61,33 @@ export default function Settings() {
                 {/* Profile Image */}
                 <div className="flex flex-col items-start gap-3">
                   <Label className="mb-2">Profile Image</Label>
-                  <input type="file" accept="image/*" onChange={handleImageChange} />
-                  {imagePreview ? (
-                    <img src={imagePreview} alt="Preview" className="w-24 h-24 rounded-full object-cover" />
-                  ) : <img src="/black-tshirt.png" className="w-24 h-24 rounded-full object-cover"/>}
+
+                  {/* Image wrapper */}
+                  <div className="relative w-24 h-24">
+                    <img
+                      src={imagePreview || "/black-tshirt.png"}
+                      alt="Preview"
+                      className="w-24 h-24 rounded-sm object-cover"
+                    />
+
+                    {/* Edit Icon */}
+                    <button
+                      type="button"
+                      onClick={handleClick}
+                      className="absolute bottom-1 right-1 bg-black/60 hover:bg-black/80 text-white p-1 rounded-sm"
+                    >
+                      <Pencil size={16} />
+                    </button>
+
+                    {/* Hidden Input */}
+                    <input
+                      type="file"
+                      ref={fileInputRef}
+                      accept="image/*"
+                      onChange={handleImageChange}
+                      className="hidden"
+                    />
+                  </div>
                 </div>
 
                 {/* Name */}
@@ -68,33 +97,35 @@ export default function Settings() {
                   {errors.name && touched.name && <p className="text-red-500 text-sm">{errors.name}</p>}
                 </div>
 
-                {/* Email */}
-                <div>
-                  <Label className="mb-2">Email</Label>
-                  <Field name="email" as={Input} placeholder="Enter email" />
-                  {errors.email && touched.email && <p className="text-red-500 text-sm">{errors.email}</p>}
-                </div>
+                <div className="grid grid-cols-2 gap-5">
+                  {/* Email */}
+                  <div>
+                    <Label className="mb-2">Email</Label>
+                    <Field name="email" as={Input} placeholder="Enter email" />
+                    {errors.email && touched.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+                  </div>
 
-                {/* Phone */}
-                <div>
-                  <Label className="mb-2">Phone</Label>
-                  <Field name="phone" as={Input} placeholder="Enter phone" />
-                  {errors.phone && touched.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
-                </div>
+                  {/* Phone */}
+                  <div>
+                    <Label className="mb-2">Phone</Label>
+                    <Field name="phone" as={Input} placeholder="Enter phone" />
+                    {errors.phone && touched.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
+                  </div>
 
-                {/* Password */}
-                <div>
-                  <Label className="mb-2">Password</Label>
-                  <Field name="password" type="password" as={Input} placeholder="Enter password" />
-                </div>
+                  {/* Password */}
+                  <div>
+                    <Label className="mb-2">Password</Label>
+                    <Field name="password" type="password" as={Input} placeholder="Enter password" />
+                  </div>
 
-                {/* Confirm Password */}
-                <div>
-                  <Label className="mb-2">Confirm Password</Label>
-                  <Field name="confirmPassword" type="password" as={Input} placeholder="Confirm password" />
-                  {errors.confirmPassword && touched.confirmPassword && (
-                    <p className="text-red-500 text-sm">{errors.confirmPassword}</p>
-                  )}
+                  {/* Confirm Password */}
+                  <div>
+                    <Label className="mb-2">Confirm Password</Label>
+                    <Field name="confirmPassword" type="password" as={Input} placeholder="Confirm password" />
+                    {errors.confirmPassword && touched.confirmPassword && (
+                      <p className="text-red-500 text-sm">{errors.confirmPassword}</p>
+                    )}
+                  </div>
                 </div>
 
                 {/* Address */}

@@ -12,7 +12,7 @@ import { User } from "lucide-react"
 const TopBar = () => {
     const { pathname } = useLocation()
     return (
-        <div className="bg-black pb-24 -mb-10">
+        <div className="bg-black/90 pb-24 -mb-10">
             <header className=" py-3 shadow-sm flex items-center justify-between px-5 text-white">
                 <h2 className="font-semibold text-lg">Welcome</h2>
                 <div className="flex gap-3 items-center">

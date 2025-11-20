@@ -1,4 +1,4 @@
-import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { Area, AreaChart, CartesianGrid, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 const TopGraph = () => {
 
@@ -18,7 +18,7 @@ const TopGraph = () => {
     ]
     return (
         <div>
-            <ResponsiveContainer width="100%" height={300} className={"px-3"}>
+            <ResponsiveContainer width="100%" height={300} className="px-3">
                 <AreaChart data={activeUsersData}>
                     <defs>
                         <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
@@ -26,13 +26,30 @@ const TopGraph = () => {
                             <stop offset="95%" stopColor="#fff" stopOpacity={0} />
                         </linearGradient>
                     </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="" />
+                    <CartesianGrid
+                        vertical={false}
+                        horizontal={true}
+                        stroke="#ffffff"
+                        strokeOpacity={0.1}
+                    />
+                    <ReferenceLine
+                        y={0}
+                        stroke="#fff"
+                        strokeOpacity={0.5}
+                    />
                     <Tooltip />
-                    <XAxis dataKey="month" opacity={1} fontSize={10} />
-                    <YAxis width="auto" opacity={1} fontSize={10}  />
-                    <Area type="monotone" dataKey="value" stroke="#fff" fillOpacity={1} fill="url(#colorValue)" />
+                    <XAxis dataKey="month" fontSize={10} />
+                    <YAxis fontSize={10} />
+                    <Area
+                        type="monotone"
+                        dataKey="value"
+                        stroke="#fff"
+                        fillOpacity={1}
+                        fill="url(#colorValue)"
+                    />
                 </AreaChart>
             </ResponsiveContainer>
+
         </div>
     )
 }
