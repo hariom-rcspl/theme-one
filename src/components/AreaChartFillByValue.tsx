@@ -1,4 +1,4 @@
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
+import { AreaChart, Area, CartesianGrid, Tooltip } from 'recharts';
 
 // #region Sample data
 const data = [
