@@ -6,10 +6,11 @@ import Users from "../pages/Users"
 import Reports from "../pages/Reports"
 import Settings from "../pages/Settings"
 import Login from "../pages/Login"
+import { useState } from "react"
 
 const Routing = () => {
     const maintenanceStatus = false
-    const isLoggedIn = false 
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
 
     if (maintenanceStatus) {
         return <h2>Site is on maintenance mode!</h2>
@@ -19,7 +20,7 @@ const Routing = () => {
         <Routes>
             {!isLoggedIn && (
                 <Route element={<AuthLayout />}>
-                    <Route path="/login" element={<Login />} />
+                    <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
                     <Route path="*" element={<Navigate to="/login" />} />
                 </Route>
             )}
