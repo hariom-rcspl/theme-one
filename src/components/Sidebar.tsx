@@ -6,6 +6,7 @@ import {
     User,
     BarChart3,
     Settings,
+    ChevronDown,
 } from "lucide-react";
 import { cn } from "../lib/utils";
 import { Link, useLocation } from "react-router-dom";
@@ -15,15 +16,22 @@ export default function Sidebar() {
         { label: "Dashboard", icon: LayoutDashboard, path: "/" },
         { label: "Users", icon: User, path: "/users" },
         { label: "Reports", icon: BarChart3, path: "/reports" },
-        { label: "Settings", icon: Settings, path: "/settings" },
+        {
+            label: "Settings",
+            icon: Settings,
+            path: "/settings",
+            subMenu: [
+                { label: "Profile Setting", path: "/settings/profile" },
+                { label: "Notification Setting", path: "/settings/notification" },
+                { label: "Change Password", path: "/settings/change-password" },
+            ]
+        },
     ];
     const [collapsed, setCollapsed] = useState(false);
-    const {pathname} = useLocation()
-    console.log('path', pathname)
     return (
         <div
             className={cn(
-                "bg-[#1c9d96] text-white h-screen transition-all duration-300 flex flex-col py-4",
+                "bg-[#1c9d96] text-white h-screen transition-all duration-300 flex flex-col py-4 overflow-y-auto",
                 collapsed ? "w-24" : "w-72"
             )}
         >
@@ -53,7 +61,7 @@ export default function Sidebar() {
                             collapsed={collapsed}
                             key={i}
                             href={ele.path}
-                            active={pathname === ele.path}
+                            subMenu={ele.subMenu}
                         />
                     )
                 }
@@ -67,27 +75,66 @@ function SidebarItem({
     label,
     icon: Icon,
     collapsed,
-    active = false,
-    href
+    href,
+    subMenu
 }: any) {
-    return (
-        <Link
-            to={href}
-            className={cn(
-                "flex items-center cursor-pointer transition-all px-5 py-3 rounded-full mx-3 group",
-                active
-                    ? "bg-white/30"
-                    : "hover:bg-white/20",
-                    collapsed ? "justify-center" : ""
-            )}
-        >
-            <Icon size={22} />
+    const [open, setOpen] = useState(false);
+    const { pathname } = useLocation()
+    console.log('pathname', pathname)
+    const toggleSubmenu = (e: any) => {
+        e.stopPropagation(); // prevent navigating to parent link
+        setOpen(!open);
+    };
 
-            {!collapsed && (
-                <span className="ml-4 text-sm font-medium transition-colors">
-                    {label}
-                </span>
+    return (
+        <div>
+            <div
+                className={cn(
+                    "flex items-center cursor-pointer transition-all px-5 py-3 rounded-full mx-3 group",
+                    (pathname === href) ? "bg-white/30" : "hover:bg-white/20",
+                    collapsed ? "justify-center" : ""
+                )}
+            >
+                <Link to={href} className="flex w-full">
+                    <Icon size={22} />
+                    {!collapsed && (
+                        <span className="ml-4 text-sm font-medium">
+                            {label}
+                        </span>
+                    )}
+                </Link>
+
+                {subMenu && !collapsed && (
+                    <button
+                        onClick={toggleSubmenu}
+                        className="ml-auto"
+                    >
+                        <ChevronDown
+                            className={`transition-transform duration-300 ${open && "rotate-180"}`}
+                        />
+                    </button>
+                )}
+            </div>
+
+            {subMenu && open && !collapsed && (
+                <div className="ml-12 flex flex-col gap-1 mb-1">
+                    {subMenu.map((item: any, index: number) => (
+                        <Link
+                            key={index}
+                            to={item.path}
+                            className={cn(
+                                "py-2 px-3 rounded-md text-sm transition",
+                                (pathname === item.path)
+                                    ? "bg-white/30"
+                                    : "hover:bg-white/20"
+                            )}
+                        >
+                            {item.label}
+                        </Link>
+                    ))}
+                </div>
             )}
-        </Link>
+        </div>
     );
 }
+

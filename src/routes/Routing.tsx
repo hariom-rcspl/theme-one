@@ -7,10 +7,13 @@ import Reports from "../pages/Reports"
 import Settings from "../pages/Settings"
 import Login from "../pages/Login"
 import { useState } from "react"
+import ProfileSetting from "../pages/ProfileSetting"
+import ChangePassword from "../pages/ChangePassword"
+import NotificationSetting from "../pages/NotificationSetting"
 
 const Routing = () => {
     const maintenanceStatus = false
-    const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const [isLoggedIn, setIsLoggedIn] = useState(true)
 
     if (maintenanceStatus) {
         return <h2>Site is on maintenance mode!</h2>
@@ -31,6 +34,9 @@ const Routing = () => {
                     <Route path="/users" element={<Users />} />
                     <Route path="/reports" element={<Reports />} />
                     <Route path="/settings" element={<Settings />} />
+                    <Route path="/settings/profile" element={<ProfileSetting />} />
+                    <Route path="/settings/change-password" element={<ChangePassword />} />
+                    <Route path="/settings/notification" element={<NotificationSetting />} />
                     <Route path="/login" element={<Navigate to="/" />} />
                 </Route>
             )}

@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { Button } from "../components/ui/button"
 import { Card, CardContent } from "../components/ui/card"
 import {
@@ -8,12 +9,14 @@ import {
 import { Input } from "../components/ui/input"
 import { useFormik } from "formik"
 import { toast } from "sonner"
+import { Eye, EyeClosed } from "lucide-react"
 
 export function LoginForm({ setIsLoggedIn }: any) {
+  const [showPassword, setShowPassword] = useState(false)
   const formik = useFormik({
     initialValues: {
-      email: "",
-      password: "",
+      email: "admin@gmail.com",
+      password: "Admin@123",
     },
     onSubmit: async (values) => {
       console.log('values', values)
@@ -48,27 +51,24 @@ export function LoginForm({ setIsLoggedIn }: any) {
                   onChange={formik.handleChange}
                 />
               </Field>
-              <Field>
-                {/* <div className="flex items-center">
-                  <FieldLabel htmlFor="password">Password</FieldLabel>
-                  <a
-                    href="#"
-                    className="ml-auto text-sm underline-offset-2 hover:underline"
-                  >
-                    Forgot your password?
-                  </a>
-                </div> */}
+              <div className="relative">
                 <Input
                   id="password"
                   name="password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   placeholder="********"
                   required
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.password}
                 />
-              </Field>
+                <div className="absolute top-1/2 right-2 w-20" onClick={() => setShowPassword(!showPassword)}>
+                  {showPassword ?
+                    <Eye size={17} className="absolute top-1/2 right-2 -translate-y-1/2" /> :
+                    <EyeClosed size={17} className="absolute top-1/2 right-2 -translate-y-1/2" />
+                  }
+                </div>
+              </div>
               <Field>
                 <Button type="submit">Login</Button>
               </Field>
