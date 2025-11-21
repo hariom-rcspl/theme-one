@@ -35,7 +35,7 @@ export default function Sidebar() {
 
                 <button
                     onClick={() => setCollapsed(!collapsed)}
-                    className="bg-white/20 p-2 rounded-full hover:bg-white/30 transition"
+                    className={`bg-white/20 p-2 rounded-full hover:bg-white/30 transition cursor-pointer ${collapsed && "mx-auto"}`}
                 >
                     {collapsed ? <Menu /> : <X />}
                 </button>

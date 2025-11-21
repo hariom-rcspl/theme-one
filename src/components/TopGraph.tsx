@@ -5,16 +5,16 @@ const TopGraph = () => {
     const activeUsersData = [
         { month: "JAN", value: 10 },
         { month: "FEB", value: 120 },
-        { month: "MAR", value: 50 },
-        { month: "APR", value: 110 },
-        { month: "MAY", value: 220 },
+        { month: "MAR", value: 10 },
+        { month: "APR", value: 120 },
+        { month: "MAY", value: 10 },
         { month: "JUN", value: 130 },
-        { month: "JUL", value: 15 },
+        { month: "JUL", value: 10 },
         { month: "AUG", value: 150 },
         { month: "SEPT", value: 10 },
         { month: "OCT", value: 140 },
         { month: "NOV", value: 10 },
-        { month: "DEC", value: 15 },
+        { month: "DEC", value: 150 },
     ]
     return (
         <div>
